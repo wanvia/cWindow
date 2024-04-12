@@ -35,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	hWnd = CreateWindow(firstWindow, "mp3chenger", WS_OVERLAPPEDWINDOW,
 		0,0
-		600,500,
+		530,230,
 		NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, SW_SHOW);
