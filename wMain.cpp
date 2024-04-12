@@ -28,12 +28,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.hIcon = NULL;
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = farstWindow;
+	wc.lpszMenuName = firstWindow;
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wcex);
 
 
-	hWnd = CreateWindow(warstWindow, "mp3chenger", WS_OVERLAPPEDWINDOW,
+	hWnd = CreateWindow(firstWindow, "mp3chenger", WS_OVERLAPPEDWINDOW,
 		0,0
 		600,500,
 		NULL, NULL, hInstance, NULL);
