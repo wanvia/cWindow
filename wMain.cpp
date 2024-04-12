@@ -1,20 +1,49 @@
-#include <stdio.h>
+#include <windows.h>
 
-int add(int x, int y)
+LRESULT CALLBACK WindowProc(HWND hwnd, UNIT message, WPARAM wParam, LPARAM lParam)
 {
-    int s = x + y;
-    return s;
+	switch (message)
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	}
+	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-int main()
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	HWND hWnd;
+	LPCTSTR firstWindow = "testWindow"
+	WNDCLASSEX wc;
 
-    int a = 10;
-    int b = 20;
+	ZeroMemory((LPVOID)&wc, sizeof(WNDCLASSEX));
 
-    int s = add(a, b);
+	wc.cdSize = sizeof(WNDCLASSEX);
+	wc.style = 0;
+	wc.lpfnWndProc = WndProc;
+	wc.cdClsExtra = 0;
+	wc.cdWndExtra = 0;
+	wc.hInstance = hInstance;
+	wc.hIcon = NULL;
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH);
+	wc.lpszMenuName = farstWindow;
+	wc.hIconSm = NULL;
+	RegisterClassEx(&wcex);
 
-    printf("%d", s);
 
-    return 0;
+	hWnd = CreateWindow(warstWindow, "mp3chenger", WS_OVERLAPPEDWINDOW,
+		0,0
+		600,500,
+		NULL, NULL, hInstance, NULL);
+
+	ShowWindow(hWnd, SW_SHOW);
+
+	MSG msg = {};
+	while (GetMessage(&msg, NULL, 0, 0) == 1)
+	{
+		TransLateMassage(&msg);
+		DispatchMessage(&msg);
+	}
 }
