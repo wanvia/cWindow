@@ -1,6 +1,6 @@
 #include <windows.h>
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UNIT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
@@ -14,36 +14,32 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UNIT message, WPARAM wParam, LPARAM lPara
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd;
-	LPCTSTR firstWindow = "testWindow"
+	LPCTSTR firstWindow;
 	WNDCLASSEX wc;
 
 	ZeroMemory((LPVOID)&wc, sizeof(WNDCLASSEX));
 
-	wc.cdSize = sizeof(WNDCLASSEX);
+	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = 0;
-	wc.lpfnWndProc = WndProc;
-	wc.cdClsExtra = 0;
-	wc.cdWndExtra = 0;
+	wc.lpfnWndProc = WindowProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
-	wc.hIcon = NULL;
+	wc.hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH) GetStockObject(WHITE_BRUSH);
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = firstWindow;
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wc);
 
-
-	hWnd = CreateWindow(firstWindow, "mp3chenger", WS_OVERLAPPEDWINDOW,
-		0,0
-		530,230,
-		NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(firstWindow, firstWindow, WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, SW_SHOW);
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0) == 1)
 	{
-		TransLateMassage(&msg);
+		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
 }
