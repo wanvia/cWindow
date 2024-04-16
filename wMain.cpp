@@ -28,12 +28,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	wc.hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = null;
+	wc.lpszMenuName = NULL;
 	wc.lpszClassName = firstWindow;
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wc);
 
-	hWnd = CreateWindow(firstWindow, lol, WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(firstWindow, L"lol", WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, SW_SHOW);
 
