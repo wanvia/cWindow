@@ -11,7 +11,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 	return DefWindowProc(hwnd, message, wParam, lParam);
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd;
 	LPCTSTR firstWindow;
@@ -28,11 +28,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = firstWindow;
+	wc.lpszMenuName = null;
+	wc.lpszClassName = firstWindow;
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wc);
 
-	hWnd = CreateWindow(firstWindow, firstWindow, WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindow(firstWindow, lol, WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, SW_SHOW);
 
