@@ -1,23 +1,11 @@
 #include <windows.h>
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	}
-	return DefWindowProc(hwnd, message, wParam, lParam);
-}
+LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd;
-	LPCTSTR firstWindow;
 	WNDCLASSEX wc;
-
-	ZeroMemory((LPVOID)&wc, sizeof(WNDCLASSEX));
 
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = 0;
@@ -29,13 +17,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = firstWindow;
+	wc.lpszClassName = _T("firstWindow");
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wc);
 
-	hWnd = CreateWindow(firstWindow, L"lol", WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
+ if(!RegisterApp(_T("firstWindow", DefWindowProcA)) return FALSE;
+
+	hWnd = CreateWindowEx(0, _T("firstWindow), _T("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, SW_SHOW);
+
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0) == 1)
@@ -43,4 +34,16 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+}
+
+	LRESULT CALLBACK WindowProc(HWND hWnd, UNIT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch( uMsg )
+	{
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
+	}
+
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
