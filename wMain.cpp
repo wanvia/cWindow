@@ -21,12 +21,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	wc.hIconSm = NULL;
 	RegisterClassEx(&wc);
 
- if(!RegisterApp(_T("firstWindow", DefWindowProcA)) return FALSE;
+ if(!RegisterApp(_T("firstWindow", DefWindowProcA)) return 0;
 
 	hWnd = CreateWindowEx(0, _T("firstWindow), _T("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
-	ShowWindow(hWnd, SW_SHOW);
+	if(hWnd == NULL) return 0;
 
+	ShowWindow(hWnd, SW_SHOW);
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0) == 1)
