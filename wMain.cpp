@@ -1,33 +1,42 @@
 #include <windows.h>
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow)
 {
 	HWND hWnd;
 	WNDCLASSEX wc;
 
 	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = 0;
+	wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
 	wc.lpfnWndProc = WindowProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInstance;
-	wc.hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = _T("firstWindow");
-	wc.hIconSm = NULL;
+	wc.lpszClassName = TEXT("firstWindow");
+	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 	RegisterClassEx(&wc);
 
- if(!RegisterApp(_T("firstWindow", DefWindowProcA)) return 0;
+	if (!RegisterClassEx(&wc))
+	{
+		MessageBox(NULL, TEXT("レジスタークラス"), TEXT(""), MB_OK);
+		return 0;
+	}
 
-	hWnd = CreateWindowEx(0, _T("firstWindow), _T("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
+	hWnd = CreateWindowEx(WS_EX_ACCEPTFILES, TEXT("firstWindow"), TEXT("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
-	if(hWnd == NULL) return 0;
+	if (!hWnd)
+	{
+		MessageBox(NULL, TEXT("クリエイト"), TEXT(""), MB_OK);
+		return 0;
+	}
 
-	ShowWindow(hWnd, SW_SHOW);
+	ShowWindow(hWnd, nCmdShow);
+	UpdateWindow(hWnd);
 
 	MSG msg = {};
 	while (GetMessage(&msg, NULL, 0, 0) == 1)
@@ -35,11 +44,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
+	return msg.wParam;
 }
 
-	LRESULT CALLBACK WindowProc(HWND hWnd, UNIT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	switch( uMsg )
+	switch (uMsg)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
