@@ -1,8 +1,9 @@
 #include <windows.h>
+#include <tchar.h>
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd;
 	WNDCLASSEX wc;
@@ -20,7 +21,8 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPSTR lpCmdLine, in
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = TEXT("Sample02");
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	wc.hIconSm = LoadIcon(NULL,
+						  IDI_APPLICATION);
 	RegisterClassEx(&wc);
 
 	if (!RegisterClassEx(&wc))
