@@ -3,46 +3,38 @@
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd;
-	WNDCLASSEX wc;
+	WNDCLASSEXW wc;
 	MSG msg;
-	LPCTSTR szWindowClass[] = TEXT("Sample02");
+	const wchar_t szClassName[] = L"test";
 
 	wc.cbSize = sizeof(WNDCLASSEX);
-	wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
+	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = WindowProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hInstance = hInst;
+	wc.hInstance = hInstance;
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wc.hbrBackground = HBRUSH(COLOR_WINDOW + 1);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = szWindowClass;
-	wc.hIconSm = LoadIcon(NULL,
-						  IDI_APPLICATION);
-	RegisterClassEx(&wc);
+	wc.lpszClassName = szClassName;
+	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	RegisterClassExW(&wc);
 
-	if (!RegisterClassEx(&wc))
-	{
-		MessageBox(NULL, TEXT("レジスタークラス"), TEXT(""), MB_OK);
+	if (!RegisterClassExW(&wc))
 		return 0;
-	}
 
-	hWnd = CreateWindowEx(WS_EX_ACCEPTFILES, szWindowClass, TEXT("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInst, NULL);
+	hWnd = CreateWindowExW(WS_EX_ACCEPTFILES, szClassName, L"lol", WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
 
 	if (!hWnd)
-	{
-		MessageBox(NULL, TEXT("cre"), TEXT(""), MB_OK);
 		return 0;
-	}
 
-	ShowWindow(hWnd, SW_SHOW);
-	UpdateWindow(hWnd);
+	ShowWindow(hWnd, nCmdShow);
 
-	while (GetMessage(&msg, NULL, 0, 0) > 0)
+	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
