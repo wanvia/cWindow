@@ -8,7 +8,7 @@ int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPTSTR lpCmdLine,
 	HWND hWnd;
 	WNDCLASSEX wc;
 	MSG msg;
-	// TCHAR szWindowClass[] = TEXT("Sample02");
+	LPCTSTR szWindowClass[] = TEXT("Sample02");
 
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -20,7 +20,7 @@ int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPTSTR lpCmdLine,
 	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 	wc.lpszMenuName = NULL;
-	wc.lpszClassName = TEXT("Sample02");
+	wc.lpszClassName = szWindowClass;
 	wc.hIconSm = LoadIcon(NULL,
 						  IDI_APPLICATION);
 	RegisterClassEx(&wc);
@@ -31,7 +31,7 @@ int WINAPI _tWinMain(HINSTANCE hInst, HINSTANCE hPrevInstance, LPTSTR lpCmdLine,
 		return 0;
 	}
 
-	hWnd = CreateWindowEx(WS_EX_ACCEPTFILES, TEXT("Sample02"), TEXT("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInst, NULL);
+	hWnd = CreateWindowEx(WS_EX_ACCEPTFILES, szWindowClass, TEXT("lol"), WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInst, NULL);
 
 	if (!hWnd)
 	{
