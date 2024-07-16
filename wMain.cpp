@@ -3,7 +3,7 @@
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
 {
 	HWND hWnd;
 	WNDCLASSEXW wc;
@@ -33,13 +33,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		return 0;
 
 	ShowWindow(hWnd, nCmdShow);
+	
+	bool error_judgment
 
-	while (GetMessage(&msg, NULL, 0, 0))
+	while (error_judgment = GetMessage(&msg, NULL, 0, 0) = != 0)
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		if (error_judgment = -1)
+		{
+			MessageBoxW(NULL, "エラー", "test", MB_OK);
+		}
+		else
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
 	}
-	return msg.wParam;
+	return 0;
 }
 
 LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
