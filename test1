@@ -4,7 +4,7 @@
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow);
 {
-	CString display_str = CString(_T(""));
+	CString display_str = CString(_T("はろー、にゃーすけ"));
 	
 	// std::wcout.imbue(std::locale("japanese"));
 	std::wcout << display_str << std::endl;
