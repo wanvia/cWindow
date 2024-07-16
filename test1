@@ -1,0 +1,12 @@
+#include <Windows.h>
+#include <iostream.h>
+#include <atlstr.h>
+
+int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow);
+{
+	CString display_str = CString(_T(""));
+	
+	// std::wcout.imbue(std::locale("japanese"));
+	std::wcout << display_str << std::endl;
+	return 0;
+}
