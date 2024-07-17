@@ -33,21 +33,21 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 		return 0;
 
 	ShowWindow(hWnd, nCmdShow);
-	
-	bool error_judgment
 
-	while (error_judgment = GetMessage(&msg, NULL, 0, 0) = != 0)
-	{
-		if (error_judgment = -1)
+	BOOL error_judgment;
+
+		while ((error_judgment = GetMessage(&msg, NULL, 0, 0)) != 0)
 		{
-			MessageBoxW(NULL, "エラー", "test", MB_OK);
+			if (error_judgment == -1)
+			{
+				MessageBoxW(NULL, L"エラー", L"test", MB_OK);
+			}
+			else
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
 		}
-		else
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
 	return 0;
 }
 
