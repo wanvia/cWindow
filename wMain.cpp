@@ -22,32 +22,31 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = szClassName;
 	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
-	RegisterClassExW(&wc);
+	RegisterClassExW(&wc);	
 
-	if (!RegisterClassExW(&wc))
+	hWnd = CreateWindowExW(WS_EX_ACCEPTFILES, szClassName, L"lol", WS_OVERLAPPEDWINDOW, 0, 0, 530, 1230, NULL, NULL, hInstance, NULL);
+
+	if (hWnd == NULL)
+	{
 		return 0;
-
-	hWnd = CreateWindowExW(WS_EX_ACCEPTFILES, szClassName, L"lol", WS_OVERLAPPEDWINDOW, 0, 0, 530, 230, NULL, NULL, hInstance, NULL);
-
-	if (!hWnd)
-		return 0;
+	}
 
 	ShowWindow(hWnd, nCmdShow);
 
 	BOOL error_judgment;
 
-		while ((error_judgment = GetMessage(&msg, NULL, 0, 0)) != 0)
+	while ((error_judgment = GetMessage(&msg, NULL, 0, 0)) != 0)
+	{
+		if (error_judgment == -1)
 		{
-			if (error_judgment == -1)
-			{
-				MessageBoxW(NULL, L"エラー", L"test", MB_OK);
-			}
-			else
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
+			MessageBoxW(NULL, L"エラー", L"test", MB_OK);
 		}
+		else
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
 	return 0;
 }
 
